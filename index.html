@@ -1,0 +1,112 @@
+<!DOCTYPE html>  
+ <html lang="en">  
+  <head>  
+   <meta charset="utf-8" />  
+   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+   <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+   <!--<link rel="stylesheet" type="text/css" href="style.css"  title="phone_display">-->
+   <link rel="shortcut icon" type="image/png" href="beer.jpg">
+   <meta name="description" content="Simple alcoholic tax calculator" />
+
+   <title>Calcolotore tasso alcolemico</title>  
+  </head>  
+  <body>
+    <table>
+        <tr>
+            <th>
+                Inserisci il tuo peso:              
+            </th>
+            <td>
+                <label>
+                    <input type="number" id="peso" name="peso" placeholder="70" min="0" required>
+                </label>
+            </td>
+        </tr>
+        <tr>
+            <th>
+                Inserisci la gradazione alcolica: 
+            </th>
+            <td>
+                <label>
+                    <input type="text" id="%alcol" name="%alcol" placeholder="5"  min="0" required>
+                </label>
+            </td>
+        </tr>
+        <tr>
+            <th>
+                Inserisci quantità bevanda (in ml):
+            </th>
+            <td>
+                <label>
+                    <input type="number" id="ml" name="ml" placeholder="330" min="0" required>
+                </label>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <br>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="button" id="uomo_pieno" value="uomo a stomaco pieno" onclick="calculate(1);" name="U_P">
+            </td>
+            <td>
+                <input type="button" id="donna_piena" value="donna a stomaco pieno" onclick="calculate(3);" name="D_P">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="button" id="uomo_vuoto" value="uomo a stomaco vuoto" onclick="calculate(2);" name="U_V">
+            </td>
+            <td>
+                <input type="button" id="donna_vuota" value="donna a stomaco vuoto" onclick="calculate(4);" name="D_V">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <br>
+            </td>
+        </tr>
+        <tr>
+            <th>
+                Tasso alcolemico:
+            </th>
+            <td>
+                <lebel>
+                    <input readonly="number" id="risultato">
+                </label>
+            </td>
+        </tr>
+    </table>
+   <script type="text/javascript">
+    function calculate(choice) {
+        var peso = document.getElementById("peso").value;
+        var alcol = document.getElementById("%alcol").value;
+        var ml = document.getElementById("ml").value;
+        var result;
+        const grammi = 8;
+        const litri = 1000;
+        const U_P = 1.2;
+        const U_V = 0.7;
+        const D_P = 0.9;
+        const D_V = 0.5;
+        switch(choice){
+            case 1:
+                result = ((alcol * grammi) * (ml / litri)) / (peso * U_P);
+                break;
+            case 2:
+                result = ((alcol * grammi) * (ml / litri)) / (peso * U_V);
+                break;
+            case 3:
+                result = ((alcol * grammi) * (ml / litri)) / (peso * D_P);
+                break;
+            case 4: 
+                result = ((alcol * grammi) * (ml / litri)) / (peso * D_V);
+                break;
+        }
+        document.getElementById("risultato").value = result;
+    }
+   </script>
+  </body>
+ </html>
