@@ -19,9 +19,32 @@
             <label for="perc_alcol">Seleziona il drink o inserisci la gradazione alcolica: </label>
             <input list="scelte" id="perc_alcol" name="perc_alcol" placeholder="5" min ="0" max="100" required>
             <datalist id="scelte">
-                <option value="26"> Negroni </option>
-                <option value="28"> Long Island </option>
-                <option value="16"> Gin Lemon </option>
+                <option value=Margarita> 
+                <option value=Mojito>
+                <option value=Negroni>
+                <option value="MartiniDry"></option>
+                <option value="Daiquiri"></option>
+                <option value="Cosmopolitan"></option>
+                <option value="PinaColada"></option>
+                <option value="OldFashioned"></option>
+                <option value="TequilaSunrise"></option>
+                <option value="BloodyMary"></option>
+                <option value="SexontheBeach"></option>
+                <option value="CubaLibre"></option>
+                <option value="LongIsland"></option>
+                <option value="Caipiroska"></option>
+                <option value="GinTonic"></option>
+                <option value="VodkaRedbull"></option>
+                <option value="AperolSpritz"></option>
+                <option value="WhiskeySour"></option>
+                <option value="QuattroBianchi"></option>
+                <option value="QuattroBianchi&Sciroppo"></option>
+                <option value="CampariSpritz"></option>
+                <option value="VodkaTonic"></option>
+                <option value="VodkaLemon"></option>
+                <option value="GinLemon"></option>
+                <option value="JaegerRedbull"></option>
+                <option value="Rum&Cola"></option>
             </datalist>
         </div>
 
@@ -40,12 +63,17 @@
             </select>
         </div>
         <div class="buttons-container">
-            <button type="button" onclick="tasso()"> Calcola </button>
+            <button type="button" onclick="tasso(), tempo()"> Calcola </button>
         </div>
 
         <div id="campi">
             <label for="tasso_alcolemico">Il tasso alcolemico è: </label>
-            <input readonly="number" id="tasso_alcolemico" name="tasso_alcolemico">            
+            <input readonly id="tasso_alcolemico" name="tasso_alcolemico">            
+        </div>
+        <div id="campi">
+            <p id="smaltimento">
+
+            </p>
         </div>
         <div id="campi">
             <button onclick="go2gradalcol()">Crea il tuo drink!</button>

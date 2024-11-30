@@ -1,4 +1,4 @@
-//script chatgpt.html
+//script grad_alcol.html
 
 function generaCampi() {
     let num = parseInt(document.getElementById('num_alcolici').value);
@@ -87,7 +87,7 @@ function go2index() {
     window.location.href = url;
 }
 
-//script prova3.html
+//script index.html
 
 function leggiParametri() {
     const urlParams = new URLSearchParams(window.location.search);
@@ -112,9 +112,9 @@ function go2gradalcol() {
 
 function tasso() {
     // Recupero dei valori degli input
-    let peso = parseFloat(document.getElementById("peso").value);
-    let gradazione = parseFloat(document.getElementById("perc_alcol").value);
-    let volume = parseFloat(document.getElementById("ml").value);
+    let peso = parseFloat(document.getElementById("peso").value); //kg
+    let gradazione = document.getElementById("perc_alcol").value; //% v/v
+    let volume = parseFloat(document.getElementById("ml").value); //ml
     let litri = 1000;
     const grammi = 8;
     let sesso = (document.getElementById("sesso").value == "uomo");
@@ -122,6 +122,33 @@ function tasso() {
     let indice_cibo;
     let tasso_alcolemico;
     
+    //trasferimento dati dalla scelta della tabella
+    if (isNaN(parseFloat(gradazione))) {
+        let alcolici = [
+            "Margarita", "Mojito", "Negroni", "MartiniDry", "Daiquiri", 
+            "Cosmopolitan", "PinaColada", "OldFashioned", "TequilaSunrise", 
+            "BloodyMary", "SexontheBeach", "CubaLibre", "LongIsland", 
+            "Caipiroska", "GinTonic", "VodkaRedbull", "AperolSpritz", "WhiskeySour",
+            "JackDaniel's&Cola", "QuattroBianchi", "QuattroBianchi&Sciroppo", 
+            "CampariSpritz", "VodkaTonic", "VodkaLemon", "GinLemon", 
+            "JaegerRedbull", "Rum&Cola"
+        ]
+        
+       let perc = [
+            30, 13, 24, 31, 20, 25, 15, 32, 12, 
+            10, 15, 13, 22, 18, 15, 10, 8, 20, 8, 40, 25, 
+            11, 15, 12, 12, 20, 12
+        ]
+        for (let i = 0; i < alcolici.length; i++) {
+            if (gradazione == alcolici[i]) {
+                gradazione = perc[i];
+                break;
+            }
+        }
+    } else {
+        gradazione = parseFloat(gradazione);
+    }
+
     //controllo validità dati inseriti
     if(isNaN(gradazione) || isNaN(volume) || isNaN(peso)){
         alert("Inserisci dei valori prima di procedere con il calcolo");
@@ -136,12 +163,30 @@ function tasso() {
     if (sesso) {
         indice_cibo = stomaco ? 1.2 : 0.7; // Uomo
     } else {
-        indice_cibo = stomaco ? 0.9 : 0.5; // Donna
+        indice_cibo = stomaco ? 0.9 : 0.55; // Donna
     }
 
     // Calcola il tasso alcolemico
     tasso_alcolemico = ((gradazione * grammi) * (volume / litri)) / (peso * indice_cibo);
     
     // Stampa il risultato nel campo di output
-    document.getElementById("tasso_alcolemico").value = tasso_alcolemico.toFixed(2) + "%";
+    document.getElementById("tasso_alcolemico").value = tasso_alcolemico.toFixed(2) + " g/L";
+}
+
+function tempo() {
+    let tasso_alcolemico = parseFloat(document.getElementById("tasso_alcolemico").value);
+    let smaltimento = 0.10;
+    let tempo_smaltimento = tasso_alcolemico / smaltimento;
+    let ore = Math.floor(tempo_smaltimento); //Math.floor arrotonda per difetto
+    let minuti = (tempo_smaltimento - ore) * 60;
+    if (ore == 0) {
+        document.getElementById("smaltimento").innerHTML = "Il tasso alcolemico sarà pari a zero tra: " + Math.round(minuti) + " minuti "; //Math.round arrotonda per eccesso oltre 0.5
+    }
+    else if (ore == 1) {
+        document.getElementById("smaltimento").innerHTML = "Il tasso alcolemico sarà pari a zero tra: " + ore + " ora e " + Math.round(minuti) + " minuti ";
+    }
+    else {
+        document.getElementById("smaltimento").innerHTML = "Il tasso alcolemico sarà pari a zero tra: " + ore + " ore e " + Math.round(minuti) + " minuti ";
+    }
+    
 }
