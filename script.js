@@ -131,13 +131,13 @@ function tasso() {
             "Caipiroska", "GinTonic", "VodkaRedbull", "AperolSpritz", "WhiskeySour",
             "JackDaniel's&Cola", "QuattroBianchi", "QuattroBianchi&Sciroppo", 
             "CampariSpritz", "VodkaTonic", "VodkaLemon", "GinLemon", 
-            "JaegerRedbull", "Rum&Cola"
+            "JaegerRedbull", "Rum&Cola", "NegroniSbagliato"
         ]
         
        let perc = [
             30, 13, 24, 31, 20, 25, 15, 32, 12, 
             10, 15, 13, 22, 18, 15, 10, 8, 20, 8, 40, 25, 
-            11, 15, 12, 12, 20, 12
+            11, 15, 12, 12, 20, 12, 15
         ]
         for (let i = 0; i < alcolici.length; i++) {
             if (gradazione == alcolici[i]) {
