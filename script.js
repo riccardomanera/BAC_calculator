@@ -120,57 +120,63 @@ function tasso() {
     let sesso = (document.getElementById("sesso").value == "uomo");
     let stomaco = (document.getElementById("stomaco").value == "full");
     let indice_cibo;
-    let tasso_alcolemico;
-    
-    //trasferimento dati dalla scelta della tabella
-    if (isNaN(parseFloat(gradazione))) {
-        let alcolici = [
-            "Margarita", "Mojito", "Negroni", "MartiniDry", "Daiquiri", 
-            "Cosmopolitan", "PinaColada", "OldFashioned", "TequilaSunrise", 
-            "BloodyMary", "SexontheBeach", "CubaLibre", "LongIsland", 
-            "Caipiroska", "GinTonic", "VodkaRedbull", "AperolSpritz", "WhiskeySour",
-            "JackDaniel's&Cola", "QuattroBianchi", "QuattroBianchi&Sciroppo", 
-            "CampariSpritz", "VodkaTonic", "VodkaLemon", "GinLemon", 
-            "JaegerRedbull", "Rum&Cola", //"NegroniSbagliato"
-        ]
-        
-       let perc = [
-            30, 13, 24, 31, 20, 25, 15, 32, 12, 
-            10, 15, 13, 22, 18, 15, 10, 8, 20, 8, 40, 25, 
-            11, 15, 12, 12, 20, 12, //15
-        ]
-        for (let i = 0; i < alcolici.length; i++) {
-            if (gradazione == alcolici[i]) {
-                gradazione = perc[i];
-                break;
+    let tasso_alcolemico = 0;
+    let container = document.getElementById('bevanda');
+    let blocchi = container.querySelectorAll('.blocco').length + 1;
+    for (let k = 0; k < blocchi; k++) {
+        //trasferimento dati dalla scelta della tabella
+        if (isNaN(parseFloat(gradazione))) {
+            let alcolici = [
+                "Margarita", "Mojito", "Negroni", "MartiniDry", "Daiquiri", "Cosmopolitan", 
+                "PinaColada", "TequilaSunrise", "BloodyMary", "SexontheBeach", "CubaLibre", "LongIsland", 
+                "Caipiroska", "GinTonic", "VodkaRedbull", "AperolSpritz","JackDaniel's&Cola", "QuattroBianchi",
+                "QuattroBianchi&Sciroppo", "CampariSpritz", "VodkaTonic", "VodkaLemon", "GinLemon", "JaegerRedbull",
+                "Rum&Cola", "NegroniSbagliato", "Caipirinha", "BirraLager", "BirraDoppioMalto", "VinoRosso",
+                "VinoBianco", "Spumante", "BlueLagoon"
+            ]
+            
+        let perc = [
+                28, 18, 24, 30, 18, 22, 
+                12.5, 12, 11, 15.7, 13, 22, 
+                24, 15, 10, 9, 5, 40, 
+                25, 12, 15, 15, 15, 15, 
+                12, 15, 30, 5, 9, 14,
+                11, 11, 15
+            ]
+
+            for (let i = 0; i < alcolici.length; i++) {
+                if (gradazione == alcolici[i]) {
+                    gradazione = perc[i];
+                    break;
+                }
             }
+        } else {
+            gradazione = parseFloat(gradazione);
         }
-    } else {
-        gradazione = parseFloat(gradazione);
-    }
 
-    //controllo validità dati inseriti
-    if(isNaN(gradazione) || isNaN(volume) || isNaN(peso)){
-        alert("Inserisci dei valori prima di procedere con il calcolo");
-        return;
-    }
-    if(gradazione < 0 || gradazione > 100 ) {
-        alert("Inserisci una gradazione valida (tra 0 e 100)");
-        return;
-    }
+        //controllo validità dati inseriti
+        if(isNaN(gradazione) || isNaN(volume) || isNaN(peso)){
+            alert("Inserisci dei valori prima di procedere con il calcolo");
+            return;
+        }
+        if(gradazione < 0 || gradazione > 100 ) {
+            alert("Inserisci una gradazione valida (tra 0 e 100)");
+            return;
+        }
 
-    // Calcola l'indice in base al sesso e allo stomaco
-    if (sesso) {
-        indice_cibo = stomaco ? 1.2 : 0.7; // Uomo
-    } else {
-        indice_cibo = stomaco ? 0.9 : 0.55; // Donna
-    }
+        // Calcola l'indice in base al sesso e allo stomaco
+        if (sesso) {
+            indice_cibo = stomaco ? 1.2 : 0.7; // Uomo
+        } else {
+            indice_cibo = stomaco ? 0.9 : 0.55; // Donna
+        }
 
-    // Calcola il tasso alcolemico
-    tasso_alcolemico = ((gradazione * grammi) * (volume / litri)) / (peso * indice_cibo);
-    
+        // Calcola il tasso alcolemico
+        tasso_alcolemico += ((gradazione * grammi) * (volume / litri)) / (peso * indice_cibo);
+    }
     // Stampa il risultato nel campo di output
     document.getElementById("tasso_alcolemico").value = tasso_alcolemico.toFixed(2) + " g/L";
+
 }
 
 function tempo() {
@@ -189,4 +195,67 @@ function tempo() {
         document.getElementById("smaltimento").innerHTML = "Il tasso alcolemico sarà pari a zero tra: " + ore + " ore e " + Math.round(minuti) + " minuti ";
     }
     
+}
+
+function aggiunta_bevanda() {
+    let contatore = document.querySelectorAll('.blocco').length + 1; //si mette il punto davanti al selettore (blocco) per indicare che deve cercare negli elementi CSS (tipo class) senno cerca nei tag HTML
+    let container = document.getElementById('bevanda');
+    container.innerHTML +=  `
+    <div class="blocco" id="blocco_${contatore}">
+        <div id="campi">
+            <label for="perc_alcol">Seleziona il drink o inserisci la gradazione alcolica: </label>
+            <input list="scelte" id="perc_alcol" name="perc_alcol" placeholder="5" min ="0" max="100" required>
+            <datalist id="scelte">
+                <option value="BirraLager"></option>
+                <option value="BirraDoppioMalto"></option>
+                <option value="VinoRosso"></option>
+                <option value="VinoBianco"></option>
+                <option value="Spumante"></option>
+                <option value="AperolSpritz"></option>
+                <option value="CampariSpritz"></option>
+                <option value="GinLemon"></option>
+                <option value="GinTonic"></option>
+                <option value="VodkaTonic"></option>
+                <option value="VodkaLemon"></option>
+                <option value="LongIsland"></option>
+                <option value="Negroni"></option>
+                <option value="NegroniSbagliato"></option>
+                <option value="Rum&Cola"></option>
+                <option value="VodkaRedbull"></option>
+                <option value="JaegerRedbull"></option>
+                <option value="QuattroBianchi"></option>
+                <option value="QuattroBianchi&Sciroppo"></option>
+                <option value="Mojito"></option>
+                <option value="Caipiroska"></option>
+                <option value="Caipirinha"></option>
+                <option value="SexontheBeach"></option>
+                <option value="BlueLagoon"></option>
+                <option value="CubaLibre"></option>
+                <option value="Margarita"></option>
+                <option value="Daiquiri"></option>
+                <option value="Cosmopolitan"></option>
+                <option value="PinaColada"></option>
+                <option value="TequilaSunrise"></option>
+                <option value="BloodyMary"></option>
+                <option value="MartiniDry"></option>
+            </datalist>
+        </div>
+
+        <div id="campi">
+            <label for="ml">Inserisci la quantità di bevanda (in ml): </label>
+            <input type="number" id="ml" name="ml" placeholder="330" min="0" required>
+        </div>
+    </div> `
+}
+
+function elimina_bevanda() {
+    let container = document.getElementById('bevanda');
+    let blocchi = container.querySelectorAll('.blocco');
+    if (container.textContent.trim() == "") { //.trim() è un metodo che elimina tutti gli spazi vuoti all'inizio e al fondo del container
+        alert("Non puoi eliminare l'unica bevanda presente");
+    }
+    else {
+        let ultimo_blocco = blocchi[blocchi.length -1];
+        ultimo_blocco.remove();
+    }
 }

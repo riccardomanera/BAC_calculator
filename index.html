@@ -19,32 +19,38 @@
             <label for="perc_alcol">Seleziona il drink o inserisci la gradazione alcolica: </label>
             <input list="scelte" id="perc_alcol" name="perc_alcol" placeholder="5" min ="0" max="100" required>
             <datalist id="scelte">
-                <option value=Margarita> 
-                <option value=Mojito>
-                <option value=Negroni>
-                <option value="MartiniDry"></option>
+                <option value="BirraLager"></option>
+                <option value="BirraDoppioMalto"></option>
+                <option value="VinoRosso"></option>
+                <option value="VinoBianco"></option>
+                <option value="Spumante"></option>
+                <option value="AperolSpritz"></option>
+                <option value="CampariSpritz"></option>
+                <option value="GinLemon"></option>
+                <option value="GinTonic"></option>
+                <option value="VodkaTonic"></option>
+                <option value="VodkaLemon"></option>
+                <option value="LongIsland"></option>
+                <option value="Negroni"></option>
+                <option value="NegroniSbagliato"></option>
+                <option value="Rum&Cola"></option>
+                <option value="VodkaRedbull"></option>
+                <option value="JaegerRedbull"></option>
+                <option value="QuattroBianchi"></option>
+                <option value="QuattroBianchi&Sciroppo"></option>
+                <option value="Mojito"></option>
+                <option value="Caipiroska"></option>
+                <option value="Caipirinha"></option>
+                <option value="SexontheBeach"></option>
+                <option value="BlueLagoon"></option>
+                <option value="CubaLibre"></option>
+                <option value="Margarita"></option>
                 <option value="Daiquiri"></option>
                 <option value="Cosmopolitan"></option>
                 <option value="PinaColada"></option>
-                <option value="OldFashioned"></option>
                 <option value="TequilaSunrise"></option>
                 <option value="BloodyMary"></option>
-                <option value="SexontheBeach"></option>
-                <option value="CubaLibre"></option>
-                <option value="LongIsland"></option>
-                <option value="Caipiroska"></option>
-                <option value="GinTonic"></option>
-                <option value="VodkaRedbull"></option>
-                <option value="AperolSpritz"></option>
-                <option value="WhiskeySour"></option>
-                <option value="QuattroBianchi"></option>
-                <option value="QuattroBianchi&Sciroppo"></option>
-                <option value="CampariSpritz"></option>
-                <option value="VodkaTonic"></option>
-                <option value="VodkaLemon"></option>
-                <option value="GinLemon"></option>
-                <option value="JaegerRedbull"></option>
-                <option value="Rum&Cola"></option>
+                <option value="MartiniDry"></option>
             </datalist>
         </div>
 
@@ -52,6 +58,12 @@
             <label for="ml">Inserisci la quantità di bevanda (in ml): </label>
             <input type="number" id="ml" name="ml" placeholder="330" min="0" required>
         </div>
+        
+        <div id="campi">
+            
+            <p id="bevanda"></p>
+        </div>
+
         <div id="campi">
             <select name="sesso" id="sesso">
                 <option value=uomo> Uomo </option>
@@ -61,6 +73,11 @@
                 <option value=full>Stomaco pieno</option>
                 <option value=empty>Digiuno</option>
             </select>
+        </div>
+
+        <div class="buttons-container">
+            <button type="button" onclick="aggiunta_bevanda()"> Aggiungi bevanda </button> 
+            <button type="button" onclick="elimina_bevanda()"> Elimina ultima bevanda </button>
         </div>
         <div class="buttons-container">
             <button type="button" onclick="tasso(), tempo()"> Calcola </button>
