@@ -176,6 +176,11 @@ function tasso() {
     }
     // Stampa il risultato nel campo di output
     document.getElementById("tasso_alcolemico").value = tasso_alcolemico.toFixed(2) + " g/L";
+    if (tasso_alcolemico > 4) {
+        setTimeout(function() {
+            alert("Datti una regolata... vai in coma etilico")
+        }, 1000);
+    }
 
 }
 
